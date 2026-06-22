@@ -22,7 +22,7 @@ import sys, os, re, argparse
 CHECKS = {
  "command-injection": (re.compile(r"\b(subprocess\.(run|Popen|call|check_output)|os\.system|os\.popen)\b"),
    "HIGH", "shelling out; if any argument is built from tool input this is RCE",
-   "fixed arg list, never shell=True, never f-string/concat tool input into the command"),
+   "pass a fixed argument list; avoid shell execution; never f-string or concatenate tool input into a command"),
  "code-execution": (re.compile(r"(?<![\w.])(eval|exec)\s*\(|\bcompile\s*\("),
    "HIGH", "dynamic code execution; tool-controlled input here is RCE",
    "remove eval/exec; if you need dynamic behavior, use an explicit dispatch dict"),
